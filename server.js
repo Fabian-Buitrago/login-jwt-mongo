@@ -1,4 +1,4 @@
-import { PORT } from "./src/config.js";
+import { PORT } from "./src/config/server.config.js";
 import app from "./src/app.js";
 
 app.listen(PORT);
