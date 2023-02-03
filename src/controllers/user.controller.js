@@ -56,3 +56,13 @@ export const loginUser = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+export const logoutUser = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    await authModel.deleteOne({ token });
+    res.send({ message: "Logged out successfully" });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

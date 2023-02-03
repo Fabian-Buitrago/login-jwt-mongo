@@ -1,6 +1,8 @@
 import express from "express";
+
+import userRoutes from "./routes/user.route.js";
 import { database } from "./db.js";
-import authRoute from "./routes/user.route.js";
+import { authenticate } from "./middlewares/authJwt.js";
 
 const app = express();
 
@@ -14,7 +16,11 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
-app.use("/api", authRoute);
+app.use(userRoutes);
+
+app.get("/protected", authenticate, (req, res) => {
+  res.send({ message: "Welcome to protected route" });
+});
 
 app.use((req, res, next) => {
   res.status(500).json({
